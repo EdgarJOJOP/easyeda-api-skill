@@ -1,0 +1,10 @@
+# EasyEDA MCP 服务的运行依赖
+# 安装：D:/env/mcp/python.exe -m pip install -r D:/eda/requirements.txt
+#
+# mcp：官方 Python MCP SDK。
+#   * 2.x 提供 mcp.server.mcpserver.MCPServer（首选）
+#   * 1.x 提供 mcp.server.fastmcp.FastMCP，由 easyeda_mcp.mcp_compat 适配
+#   两者都能启动，因此不要因为环境里是 1.x 就去降级/升级别人的环境。
+# aiohttp：桥接服务的 HTTP + WebSocket 实现
+mcp>=1.27
+aiohttp>=3.9

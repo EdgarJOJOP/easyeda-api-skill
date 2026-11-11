@@ -1,0 +1,23 @@
+# 一、在 MCP 客户端里配置（推荐）
+#    command 必须是可执行文件路径，客户端不经过 shell 解释。
+#    写成 "cd D:/eda && python -m easyeda_mcp" 会报 file does not exist。
+[[plugins]]
+name    = "easyeda_mcp"
+type    = "stdio"
+command = "D:/env/mcp/python.exe"
+args    = ["D:/eda/scripts/run_mcp.py"]
+
+#    另一个可用解释器（mcp SDK 2.x / Python 3.13）：
+# command = "D:/env/eda/python.exe"
+# args    = ["D:/eda/scripts/run_mcp.py"]
+
+#    注意：本服务同时兼容 mcp SDK 1.x（FastMCP）与 2.x（MCPServer）。
+#    D:/env/mcp 里是 1.27.1，D:/env/eda 里是 2.3.0，两者都能直接启动。
+
+# 二、在终端里手工运行（下面是 shell 命令，不能填进 MCP 配置的 command）
+cd D:/eda && D:/env/mcp/python.exe -m easyeda_mcp              # stdio（MCP 协议走 stdout，日志走 stderr）
+D:/env/mcp/python.exe -m easyeda_mcp --transport streamable-http --http-port 8848
+D:/env/mcp/python.exe -m easyeda_mcp --transport none          # 只跑桥接，便于 curl 调试
+
+# 三、逐分支端到端自测（会真实拉起 MCP 子进程 + 模拟 EDA 扩展）
+D:/env/mcp/python.exe D:/eda/scripts/verify_all_branches.py --report D:/eda/verify-report.json

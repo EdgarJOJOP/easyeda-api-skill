@@ -1,0 +1,28 @@
+# EasyEDA 专业版 MCP 服务与 WebSocket 桥接的打包配置。
+# 安装成本地包后可省略 -m：pip install -e . 然后直接运行 easyeda-mcp
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "easyeda-mcp"
+version = "2.1.0"
+description = "嘉立创EDA（EasyEDA）专业版 MCP 服务与 WebSocket 桥接"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "JLCEDA" }]
+keywords = ["easyeda", "eda", "pcb", "schematic", "mcp", "llm", "agent"]
+dependencies = [
+    "mcp>=1.27",
+    "aiohttp>=3.9",
+]
+
+# 命令入口：easyeda-mcp 等价于 python -m easyeda_mcp
+[project.scripts]
+easyeda-mcp = "easyeda_mcp.cli:main"
+
+# 只打包 Python 包；references/ 等文档随仓库分发，不打进 wheel
+[tool.setuptools]
+packages = ["easyeda_mcp"]
